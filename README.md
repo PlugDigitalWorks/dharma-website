@@ -43,8 +43,8 @@ To connect the API, replace the body of each function in `lib/api/` with a `fetc
 
 `lib/consent.ts` and `components/consent/CookieConsent.tsx` handle consent (UK GDPR / PECR):
 
-- Google Tag Manager (`GTM-N82CWXW4`) is **only loaded after the visitor accepts** analytics or marketing cookies.
-- Google Consent Mode v2 defaults to `denied` (set in `app/layout.tsx` before anything runs) and is updated with the visitor's choice, so GA4 and Google Ads tags in GTM follow it.
+- Google Tag Manager (`GTM-N82CWXW4`) is in the `<head>` of every page, right after the Google Consent Mode v2 defaults (all storage `denied`). This is Consent Mode "advanced": Google tags load but set no cookies until the visitor accepts.
+- A returning visitor's saved choice is applied in the same inline script, before GTM starts. New choices from the banner are sent with `gtag('consent', 'update', …)`.
 - Non-Google tags added in GTM (e.g. Meta Pixel) must have **"Require additional consent"** set to `ad_storage` in GTM, otherwise they ignore the choice.
 - Visitors can change their choice from **Cookie settings** in the footer or on `/cookies`. Withdrawing consent clears `_ga`, `_gcl`, `_fbp` cookies and reloads.
 - If new kinds of tracking are added, update `/cookies` (`app/cookies/page.tsx`) and bump `CONSENT_VERSION` so everyone is asked again.

@@ -69,8 +69,9 @@ export default async function CookiesPage() {
             ))}
           </dl>
           <p className="mt-4 text-[15px] text-stone">
-            These tools are loaded through Google Tag Manager, and only after you agree. We use Google Consent Mode, so
-            Google’s tools follow the choice you make.
+            These tools are managed through Google Tag Manager with Google Consent Mode. Until you accept, they are told
+            not to store or read any cookies, and Google may only receive basic, cookieless signals (such as that a page
+            was viewed), without identifiers. Once you choose, they follow your choice.
           </p>
         </section>
 

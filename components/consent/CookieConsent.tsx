@@ -2,12 +2,10 @@
 
 import { Switch } from '@base-ui/react/switch';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import { EASE_OUT_SOFT } from '@/components/ui/Reveal';
 import {
   consentModeState,
-  GTM_ID,
   OPEN_SETTINGS_EVENT,
   readConsent,
   saveConsent,
@@ -69,8 +67,8 @@ function Toggle({
 }
 
 /**
- * Cookie banner + settings, and the consent-gated Google Tag Manager loader.
- * Consent Mode defaults ("denied") are set in the root layout before anything runs.
+ * Cookie banner + settings. Sends the visitor's choice to Google Consent Mode.
+ * GTM itself and the "denied" defaults are loaded in the root layout (lib/consent.ts).
  */
 export function CookieConsent() {
   const reduced = useReducedMotion();
@@ -82,7 +80,7 @@ export function CookieConsent() {
   useEffect(() => {
     const stored = readConsent();
     if (stored) {
-      window.gtag?.('consent', 'update', consentModeState(stored));
+      // Already applied to Consent Mode by the inline <head> script.
       setChoice(stored);
     } else {
       setOpen(true);
@@ -112,16 +110,8 @@ export function CookieConsent() {
     setManage(false);
   }
 
-  const loadTags = !!choice && (choice.analytics || choice.marketing);
-
   return (
     <>
-      {loadTags && (
-        <Script id="gtm" strategy="afterInteractive">
-          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`}
-        </Script>
-      )}
-
       <AnimatePresence>
         {open && (
           <motion.div

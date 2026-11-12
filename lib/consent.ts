@@ -1,11 +1,13 @@
 /**
- * Cookie consent (UK GDPR / PECR).
+ * Cookie consent (UK GDPR / PECR) with Google Consent Mode v2 ("advanced").
  *
- * - Nothing non-essential runs until the visitor chooses. Google Tag Manager is
- *   only loaded once analytics or marketing is granted.
- * - The choice is mirrored to Google Consent Mode v2, so tags inside GTM that
- *   support it (GA4, Google Ads) follow it automatically. Non-Google tags in
- *   GTM (e.g. Meta Pixel) must be given "Require additional consent" in GTM.
+ * - Google Tag Manager loads on every page, in the initial HTML, right after
+ *   the Consent Mode defaults. Every storage signal starts as "denied", so
+ *   Google tags (GA4, Google Ads) set no cookies until the visitor accepts.
+ * - A returning visitor's saved choice is applied in the same inline script,
+ *   before GTM starts, so their tags fire with the right state from the start.
+ * - Non-Google tags in GTM (e.g. Meta Pixel) must be given "Require additional
+ *   consent" (ad_storage) in GTM, or they will ignore the choice.
  * - Rejecting is as easy as accepting; the choice can be changed any time from
  *   the "Cookie settings" link in the footer.
  */
@@ -63,3 +65,23 @@ export function consentModeState(choice: ConsentChoice) {
 export function openCookieSettings() {
   window.dispatchEvent(new Event(OPEN_SETTINGS_EVENT));
 }
+
+/**
+ * Inline <head> script: Consent Mode defaults, the saved choice (if any) and
+ * the Google Tag Manager loader, in that order.
+ */
+export const consentAndTagManagerScript = `
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+window.gtag=gtag;
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+gtag('set','ads_data_redaction',true);
+try{
+  var c=JSON.parse(localStorage.getItem('${STORAGE_KEY}')||'null');
+  if(c&&c.version===${CONSENT_VERSION}&&Date.now()-c.savedAt<=${MAX_AGE_MS}){
+    var a=c.analytics?'granted':'denied',m=c.marketing?'granted':'denied';
+    gtag('consent','update',{analytics_storage:a,ad_storage:m,ad_user_data:m,ad_personalization:m});
+  }
+}catch(e){}
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');
+`;
