@@ -6,23 +6,18 @@ import { ThisWeek } from '@/components/sections/ThisWeek';
 import { Visit } from '@/components/sections/Visit';
 import { WalkingClub } from '@/components/sections/WalkingClub';
 import { WhatWeDo } from '@/components/sections/WhatWeDo';
-import { getEnquiryForms, getHomeContent, getMenu, getSite } from '@/lib/api';
-import { cafeJsonLd } from '@/lib/structured-data';
+import { getHomeContent, getMenu, getSite } from '@/lib/api';
+import { siteJsonLd } from '@/lib/structured-data';
 
 export default async function HomePage() {
-  const [site, menu, content, forms] = await Promise.all([
-    getSite(),
-    getMenu(),
-    getHomeContent(),
-    getEnquiryForms(),
-  ]);
+  const [site, menu, content] = await Promise.all([getSite(), getMenu(), getHomeContent()]);
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(cafeJsonLd(site, menu)).replace(/</g, '\\u003c'),
+          __html: JSON.stringify(siteJsonLd(site, menu)).replace(/</g, '\\u003c'),
         }}
       />
       <SiteHeader nav={site.nav} orderUrl={site.orderUrl} />
@@ -31,7 +26,7 @@ export default async function HomePage() {
         <WhatWeDo content={content.whatWeDo} />
         <MenuSection content={content.menu} menu={menu} orderUrl={site.orderUrl} />
         <WalkingClub content={content.walkingClub} />
-        <Visit content={content.visit} site={site} forms={forms} />
+        <Visit content={content.visit} site={site} />
         <ThisWeek content={content.thisWeek} instagramUrl={site.instagram.url} />
       </main>
       <SiteFooter site={site} content={content.footer} />

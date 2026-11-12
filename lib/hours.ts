@@ -69,7 +69,7 @@ export function dayRangeLabel(days: DayOfWeek[], short = false) {
   return days.length === 1 ? name(days[0]) : `${name(days[0])} to ${name(days.at(-1)!)}`;
 }
 
-/** "Mon to Sat 8 to 6, Sun 9 to 6" */
+/** e.g. "Mon to Sat 8 to 5, Sun 9 to 5" */
 export function hoursSummary(specs: OpeningHoursSpec[]) {
   return groupHours(specs)
     .map((g) => `${dayRangeLabel(g.days, true)} ${formatTime(g.opens, true)} to ${formatTime(g.closes, true)}`)

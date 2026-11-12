@@ -15,6 +15,7 @@ import { LineArt } from '@/components/ui/LineArt';
 import { Logo } from '@/components/ui/Logo';
 import { OpenStatus } from '@/components/ui/OpenStatus';
 import { EASE_OUT_SOFT } from '@/components/ui/Reveal';
+import { openCookieSettings } from '@/lib/consent';
 import { dayRangeLabel, formatTime, groupHours } from '@/lib/hours';
 import type { FooterContent, SiteInfo } from '@/lib/types';
 
@@ -207,12 +208,24 @@ export function SiteFooter({ site, content }: { site: SiteInfo; content: FooterC
 
         <div className="mt-8 flex flex-col gap-2 text-xs text-chalk/50 sm:flex-row sm:justify-between">
           <p>{content.copyright}</p>
-          <a
-            href={content.poweredBy.href}
-            className="self-start underline underline-offset-4 hover:text-chalk max-sm:py-2"
-          >
-            {content.poweredBy.label}
-          </a>
+          <div className="flex flex-wrap gap-x-6 gap-y-1">
+            <a href="/cookies" className="self-start underline underline-offset-4 hover:text-chalk max-sm:py-2">
+              Cookie policy
+            </a>
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              className="cursor-pointer self-start underline underline-offset-4 hover:text-chalk max-sm:py-2"
+            >
+              Cookie settings
+            </button>
+            <a
+              href={content.poweredBy.href}
+              className="self-start underline underline-offset-4 hover:text-chalk max-sm:py-2"
+            >
+              {content.poweredBy.label}
+            </a>
+          </div>
         </div>
       </div>
     </footer>

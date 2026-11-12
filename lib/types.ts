@@ -40,6 +40,18 @@ export type Address = {
   country: string;
 };
 
+export type GeoPoint = { latitude: number; longitude: number };
+
+/** Another Dharma shop besides the main one. */
+export type Branch = {
+  id: string;
+  name: string;
+  address: Address;
+  mapsUrl: string;
+  geo?: GeoPoint;
+  openingHours: OpeningHoursSpec[];
+};
+
 export type SiteInfo = {
   name: string;
   shortName: string;
@@ -49,12 +61,17 @@ export type SiteInfo = {
   email: string;
   timeZone: string;
   currency: string;
+  /** Main shop. */
+  locationName: string;
   address: Address;
   mapsUrl: string;
+  geo?: GeoPoint;
   openingHours: OpeningHoursSpec[];
   orderUrl: string;
   instagram: { handle: string; url: string };
   nav: Link[];
+  /** Other shops, shown in the Visit section. */
+  branches: Branch[];
   /** Extra facts used in structured data. */
   foundingDate?: string;
   founder?: string;
@@ -77,11 +94,15 @@ export type MenuItem = {
 export type MenuCategory = {
   id: string;
   label: string;
+  /** Kept in the data but not shown on the site (tab and structured data). */
+  hidden?: boolean;
   items: MenuItem[];
 };
 
 export type Menu = {
   currency: string;
+  /** Show prices on the site. Off for now; prices stay in the data. */
+  showPrices: boolean;
   categories: MenuCategory[];
 };
 
@@ -153,12 +174,12 @@ export type VisitContent = {
   image: ImageAsset;
   goodToKnow: string[];
   directionsLabel: string;
-  comingSoon: {
+  /** Teaser for the other branches. */
+  branches: {
     eyebrow: string;
     title: string;
-    cta: string;
+    directionsLabel: string;
   };
-  eventCta: string;
 };
 
 export type GalleryPhoto = ImageAsset & {

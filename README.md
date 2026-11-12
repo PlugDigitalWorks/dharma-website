@@ -38,3 +38,21 @@ To connect the API, replace the body of each function in `lib/api/` with a `fetc
 - `submitEnquiry()` is a mock: it validates, waits and reports success. **Nothing is sent or stored yet.**
 - Menu prices are numbers in major units (`11.25` = £11.25) and are formatted by `lib/format.ts`.
 - Opening hours follow schema.org `OpeningHoursSpecification`. All hour labels on the page are derived from them.
+
+## Cookies and Google Tag Manager
+
+`lib/consent.ts` and `components/consent/CookieConsent.tsx` handle consent (UK GDPR / PECR):
+
+- Google Tag Manager (`GTM-N82CWXW4`) is **only loaded after the visitor accepts** analytics or marketing cookies.
+- Google Consent Mode v2 defaults to `denied` (set in `app/layout.tsx` before anything runs) and is updated with the visitor's choice, so GA4 and Google Ads tags in GTM follow it.
+- Non-Google tags added in GTM (e.g. Meta Pixel) must have **"Require additional consent"** set to `ad_storage` in GTM, otherwise they ignore the choice.
+- Visitors can change their choice from **Cookie settings** in the footer or on `/cookies`. Withdrawing consent clears `_ga`, `_gcl`, `_fbp` cookies and reloads.
+- If new kinds of tracking are added, update `/cookies` (`app/cookies/page.tsx`) and bump `CONSENT_VERSION` so everyone is asked again.
+
+## SEO
+
+- Title, description and Open Graph come from `data/site.ts`.
+- JSON-LD (`lib/structured-data.ts`): Organization, WebSite, Menu and one `CafeOrCoffeeShop` per shop (Richmond + `branches`), all from the same data the page shows.
+- `app/robots.ts`, `app/sitemap.ts`, `app/manifest.ts` generate `robots.txt`, `sitemap.xml`, `manifest.webmanifest`.
+- All visible menu categories are in the HTML (hidden tabs use `keepMounted`), so search engines see the whole menu.
+- `public/_headers` sets cache and security headers on Cloudflare.

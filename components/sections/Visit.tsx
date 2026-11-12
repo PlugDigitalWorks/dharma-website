@@ -1,24 +1,15 @@
 import Image from 'next/image';
 import { ButtonLink } from '@/components/ui/Button';
-import { EnquiryDialog } from '@/components/ui/EnquiryDialog';
 import { LineArt } from '@/components/ui/LineArt';
 import { OpenStatus } from '@/components/ui/OpenStatus';
 import { FadeUp, RevealLines } from '@/components/ui/Reveal';
-import { dayRangeLabel, formatTime, groupHours } from '@/lib/hours';
-import type { EnquiryFormConfig, EnquiryKind, SiteInfo, VisitContent } from '@/lib/types';
+import { dayRangeLabel, formatTime, groupHours, hoursSummary } from '@/lib/hours';
+import type { SiteInfo, VisitContent } from '@/lib/types';
 
 const row =
   'grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-6 border-t border-charcoal/25 py-5 md:grid-cols-[240px_1fr] lg:grid-cols-[150px_1fr] xl:grid-cols-[240px_1fr]';
 
-export function Visit({
-  content,
-  site,
-  forms,
-}: {
-  content: VisitContent;
-  site: SiteInfo;
-  forms: Record<EnquiryKind, EnquiryFormConfig>;
-}) {
+export function Visit({ content, site }: { content: VisitContent; site: SiteInfo }) {
   const details = [
     { label: 'Address', value: `${site.address.street}\n${site.address.locality} ${site.address.postcode}` },
     ...groupHours(site.openingHours).map((g) => ({
@@ -61,22 +52,28 @@ export function Visit({
             <ButtonLink href={site.mapsUrl} target="_blank" rel="noreferrer">
               {content.directionsLabel}
             </ButtonLink>
-            <EnquiryDialog form={forms.event} variant="outline">
-              {content.eventCta}
-            </EnquiryDialog>
           </div>
         </dl>
 
-        <div className="grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-3 border-t border-charcoal/25 pt-7 md:flex md:gap-6">
-          <LineArt name="shopfront" className="w-16 shrink-0 md:w-24" strokeWidth={1.6} />
-          <div className="min-w-0 flex-1">
-            <p className="text-xs font-semibold tracking-[0.14em] text-stone">{content.comingSoon.eyebrow}</p>
-            <p className="mt-1 font-display text-2xl md:text-3xl">{content.comingSoon.title}</p>
+        {site.branches.map((branch) => (
+          <div key={branch.id} className="flex items-start gap-5 border-t border-charcoal/25 pt-7 md:gap-6">
+            <LineArt name="shopfront" className="w-16 shrink-0 md:w-24" strokeWidth={1.6} />
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold tracking-[0.14em] text-stone">{content.branches.eyebrow}</p>
+              <h3 className="mt-1 font-display text-2xl md:text-3xl">{content.branches.title}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-stone">
+                {branch.address.street}, {branch.address.locality} {branch.address.postcode}
+              </p>
+              <p className="text-[15px] leading-relaxed text-stone">{hoursSummary(branch.openingHours)}</p>
+              <OpenStatus hours={branch.openingHours} timeZone={site.timeZone} className="mt-2 text-[15px] text-stone" />
+              <div>
+                <ButtonLink href={branch.mapsUrl} target="_blank" rel="noreferrer" variant="link" className="mt-2">
+                  {content.branches.directionsLabel}
+                </ButtonLink>
+              </div>
+            </div>
           </div>
-          <EnquiryDialog form={forms.twickenham} variant="link" className="col-start-2 shrink-0 justify-self-start">
-            {content.comingSoon.cta}
-          </EnquiryDialog>
-        </div>
+        ))}
       </div>
     </section>
   );

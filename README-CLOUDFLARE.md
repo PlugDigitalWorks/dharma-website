@@ -28,3 +28,7 @@ npm ci
 npm run build
 
 Uygulama derlemesi başarıyla kontrol edilmiştir. Cloudflare hesabınızdaki yayın bu paket hazırlanırken çalıştırılmamıştır.
+
+## Header'lar ve yönlendirmeler
+`public/_headers` build sırasında `out/` içine kopyalanır ve Cloudflare tarafından uygulanır (cache ve güvenlik header'ları).
+www.dharmacoffee.uk → dharmacoffee.uk ve http → https yönlendirmeleri Cloudflare panelinden yapılmalıdır (Rules → Redirect Rules, SSL/TLS → Always Use HTTPS).

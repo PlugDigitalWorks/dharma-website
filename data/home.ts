@@ -4,13 +4,13 @@ import type { HomeContent } from '@/lib/types';
 export const home: HomeContent = {
   hero: {
     image: {
-      src: '/images/counter.jpg',
+      src: '/images/counter.webp',
       alt: 'The counter at Dharma on George Street, a barista pouring at the espresso machine',
     },
     titleDesktop: ['Good', 'coffee.'],
     subtitleDesktop: ['A little', 'calm.'],
     titleMobile: ['Good coffee.', 'A little calm.'],
-    srSuffix: 'Dharma Specialty Coffee, Richmond.',
+    srSuffix: 'Dharma Specialty Coffee in Richmond and Twickenham.',
     intro:
       'A small room on George Street, Richmond. Slow mornings, careful coffee and a kitchen that cooks from scratch.',
     scrollHint: 'SCROLL TO STEP INSIDE',
@@ -29,7 +29,7 @@ export const home: HomeContent = {
         art: 'hands-cup',
         tone: 'light',
         image: {
-          src: '/images/card-coffee.jpg',
+          src: '/images/card-coffee.webp',
           alt: 'A barista pouring latte art at the counter on George Street',
         },
       },
@@ -40,7 +40,7 @@ export const home: HomeContent = {
         art: 'acuka-toast',
         tone: 'dark',
         image: {
-          src: '/images/card-kitchen.jpg',
+          src: '/images/card-kitchen.webp',
           alt: 'Traditional Acuka and a flat white on the window table',
         },
       },
@@ -51,7 +51,7 @@ export const home: HomeContent = {
         art: 'walking-club',
         tone: 'light',
         image: {
-          src: '/images/dog-door.jpg',
+          src: '/images/dog-door.webp',
           alt: 'A curly dog waiting by the shop door, a red post box behind',
         },
       },
@@ -75,7 +75,7 @@ export const home: HomeContent = {
     ],
     cta: { label: 'See the next walk', href: 'https://www.instagram.com/themumclubrichmond/' },
     image: {
-      src: '/images/towpath-club.jpg',
+      src: '/images/towpath-club.webp',
       alt: 'Mums pushing prams with takeaway coffees and a dog along the Thames in Richmond',
     },
   },
@@ -84,16 +84,15 @@ export const home: HomeContent = {
     eyebrow: 'VISIT',
     title: ['The window on', 'George Street.'],
     image: {
-      src: '/images/facade-day.jpg',
+      src: '/images/facade-day.webp',
       alt: 'Dharma’s shopfront on George Street with its charcoal fascia',
     },
-    goodToKnow: ['Card only. Step free.', 'Dogs welcome inside.'],
+    goodToKnow: ['Dogs welcome inside.', 'LGBTQ+ friendly.'],
     directionsLabel: 'Get directions',
-    eventCta: 'Book the room for an event',
-    comingSoon: {
-      eyebrow: 'COMING SOON',
+    branches: {
+      eyebrow: 'NOW OPEN',
       title: 'A second window at Twickenham Station.',
-      cta: 'Hear first',
+      directionsLabel: 'Get directions',
     },
   },
 
@@ -102,7 +101,7 @@ export const home: HomeContent = {
     followLabel: 'Follow @dharmacoffee.richmond',
     photos: [
       {
-        src: '/images/week/pastry-counter.jpg',
+        src: '/images/week/pastry-counter.webp',
         alt: 'Croissants, cinnamon swirls and a basque cheesecake in the pastry cabinet',
         x: 43,
         y: 14,
@@ -110,7 +109,7 @@ export const home: HomeContent = {
         speed: -60,
       },
       {
-        src: '/images/week/flat-white-croissant.jpg',
+        src: '/images/week/flat-white-croissant.webp',
         alt: 'A flat white and a croissant on the window table',
         x: 66,
         y: 7,
@@ -118,7 +117,7 @@ export const home: HomeContent = {
         speed: 40,
       },
       {
-        src: '/images/week/takeaway-window.jpg',
+        src: '/images/week/takeaway-window.webp',
         alt: 'A white and a red Dharma takeaway cup on the window ledge',
         x: 83,
         y: 25,
@@ -126,7 +125,7 @@ export const home: HomeContent = {
         speed: -30,
       },
       {
-        src: '/images/week/dog.jpg',
+        src: '/images/week/dog.webp',
         alt: 'A white curly dog waiting by a marble table',
         x: 3.3,
         y: 50,
@@ -134,7 +133,7 @@ export const home: HomeContent = {
         speed: 50,
       },
       {
-        src: '/images/week/barista-pour.jpg',
+        src: '/images/week/barista-pour.webp',
         alt: 'A barista pouring latte art into a Dharma cup',
         x: 23.6,
         y: 55,
@@ -143,7 +142,7 @@ export const home: HomeContent = {
         wide: true,
       },
       {
-        src: '/images/week/riverside.jpg',
+        src: '/images/week/riverside.webp',
         alt: 'A Dharma cup and bakery bag by Richmond Bridge',
         x: 66,
         y: 44,

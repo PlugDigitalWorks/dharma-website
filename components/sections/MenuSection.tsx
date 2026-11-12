@@ -3,18 +3,33 @@
 import { Tabs } from '@base-ui/react/tabs';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'motion/react';
+import { useState } from 'react';
 import { ButtonLink } from '@/components/ui/Button';
 import { EASE_OUT_SOFT, RevealLines } from '@/components/ui/Reveal';
 import { formatPrice } from '@/lib/format';
+import { visibleCategories } from '@/lib/menu';
 import type { Menu, MenuItem, MenuSectionContent } from '@/lib/types';
 
-function MenuCard({ item, index, currency }: { item: MenuItem; index: number; currency: string }) {
+function MenuCard({
+  item,
+  index,
+  price,
+  active,
+}: {
+  item: MenuItem;
+  index: number;
+  price?: string;
+  active: boolean;
+}) {
   const reduced = useReducedMotion();
   return (
     <motion.li
       initial={reduced ? false : { opacity: 0, y: 48 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: Math.min(index, 6) * 0.07, duration: 0.9, ease: EASE_OUT_SOFT }}
+      // Inactive panels stay in the HTML (for search engines) and reset, so cards rise again on every tab switch.
+      animate={active || reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 48 }}
+      transition={
+        active ? { delay: Math.min(index, 6) * 0.07, duration: 0.9, ease: EASE_OUT_SOFT } : { duration: 0 }
+      }
       className="group w-[64vw] max-w-72 shrink-0 snap-start lg:w-auto lg:max-w-none"
     >
       <div className="arch relative aspect-[3/4] overflow-hidden bg-chalk/5">
@@ -30,7 +45,7 @@ function MenuCard({ item, index, currency }: { item: MenuItem; index: number; cu
       </div>
       <div className="mt-4 flex items-baseline justify-between gap-4">
         <h3 className="font-display text-2xl">{item.name}</h3>
-        <span className="text-sm whitespace-nowrap">{formatPrice(item.price, currency)}</span>
+        {price && <span className="text-sm whitespace-nowrap">{price}</span>}
       </div>
       {item.note && (
         <p className="mt-1 text-xs font-semibold tracking-[0.14em] text-chalk/60 uppercase">{item.note}</p>
@@ -51,11 +66,13 @@ export function MenuSection({
   menu: Menu;
   orderUrl: string;
 }) {
-  if (!menu.categories.length) return null;
+  const categories = visibleCategories(menu);
+  const [activeTab, setActiveTab] = useState(categories[0]?.id);
+  if (!categories.length) return null;
   return (
     <section id="menu" className="bg-charcoal text-chalk">
       <div className="mx-auto max-w-[1440px] px-4 py-28 md:px-12 md:py-40">
-        <Tabs.Root defaultValue={menu.categories[0].id}>
+        <Tabs.Root value={activeTab} onValueChange={(value) => setActiveTab(value as string)}>
           <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="mb-5 text-xs font-semibold tracking-[0.14em] text-chalk/60">{content.eyebrow}</p>
@@ -72,7 +89,7 @@ export function MenuSection({
           </div>
 
           <Tabs.List className="relative -mx-4 mt-14 flex gap-8 overflow-x-auto border-b border-chalk/20 px-4 text-[15px] whitespace-nowrap [scrollbar-width:none] md:mx-0 md:px-0">
-            {menu.categories.map((category) => (
+            {categories.map((category) => (
               <Tabs.Tab
                 key={category.id}
                 value={category.id}
@@ -85,11 +102,17 @@ export function MenuSection({
             <Tabs.Indicator className="absolute bottom-0 left-(--active-tab-left) h-px w-(--active-tab-width) bg-chalk transition-all duration-500 ease-out-soft" />
           </Tabs.List>
 
-          {menu.categories.map((category) => (
-            <Tabs.Panel key={category.id} value={category.id}>
+          {categories.map((category) => (
+            <Tabs.Panel key={category.id} value={category.id} keepMounted>
               <ul className="-mx-4 mt-12 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] lg:mx-0 lg:grid lg:grid-cols-5 lg:gap-x-6 lg:gap-y-14 lg:overflow-visible lg:px-0 lg:pb-0">
                 {category.items.map((item, i) => (
-                  <MenuCard key={item.id} item={item} index={i} currency={menu.currency} />
+                  <MenuCard
+                    key={item.id}
+                    item={item}
+                    index={i}
+                    price={menu.showPrices ? formatPrice(item.price, menu.currency) : undefined}
+                    active={activeTab === category.id}
+                  />
                 ))}
               </ul>
             </Tabs.Panel>
