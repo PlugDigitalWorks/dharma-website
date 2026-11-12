@@ -1,6 +1,6 @@
 # Dharma Coffee — Deploy rehberi
 
-Next.js 16.4.0 + React 19.3.0 + TypeScript. Son sürüm; logo, Richmond adresi, çalışma saatleri, e-posta ve Instagram bağlantısı dahildir.
+Next.js 16.4.6 + React 19.3.0 + TypeScript + Tailwind CSS v4. Tek sayfalık Dharma sitesi (hero, menü, walking club, ziyaret, Instagram, footer).
 
 ## Gereksinim
 Node.js 20.9 veya üzeri ve npm.
@@ -32,10 +32,12 @@ Bu proje statik export kullanır. Yayına hazır dosyalar `out/` klasöründe ol
 ZIP içindeki `out/` klasörü son sürümün hazır derlemesini de içerir; doğrudan statik hosting'e yüklenebilir. Kaynaklarda değişiklik yaptıysanız yeniden derleyin.
 
 ## İçerik düzenleme
-- app/brand.ts: adres, e-posta, çalışma saatleri ve Instagram
-- app/page.tsx: sayfa metinleri ve düzen
-- app/globals.css: renkler ve responsive tasarım
-- public/dharma-logo.webp: sağlanan resmi logo
-- app/layout.tsx: başlık, SEO ve ana domain
+Tüm içerik şimdilik mock veridir ve `lib/api/` üzerinden okunur (ayrıntılar `README.md` içinde).
+- data/site.ts: adres, e-posta, çalışma saatleri, Instagram, sipariş linki, menü linkleri
+- data/menu.ts: menü kategorileri, ürünler, fiyatlar ve görseller
+- data/home.ts: bölüm metinleri ve görselleri
+- data/enquiry.ts: etkinlik ve Twickenham form metinleri
+- app/globals.css: renkler, fontlar
+- public/images/: fotoğraflar
 
-Ortam değişkeni veya gizli anahtar gerekmez. İletişim düğmeleri e-posta uygulamasını açar.
+Ortam değişkeni veya gizli anahtar gerekmez. Formlar henüz hiçbir yere veri göndermez (mock).

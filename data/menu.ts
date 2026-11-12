@@ -1,0 +1,296 @@
+import type { Menu } from '@/lib/types';
+
+/**
+ * MOCK — the menu will come from the ordering API. Read it through `getMenu()`
+ * in lib/api.ts; components never import this file directly.
+ */
+export const menu: Menu = {
+  currency: 'GBP',
+  categories: [
+    {
+      id: 'kitchen',
+      label: 'Kitchen',
+      items: [
+        {
+          id: 'pink-lady',
+          name: 'Pink Lady',
+          note: 'Dharma special',
+          description: 'Smashed beetroot and cheese, seeds and spices, poached egg on sourdough.',
+          price: 11.25,
+          image: { src: '/images/menu/pink-lady.jpg', alt: 'Pink Lady' },
+        },
+        {
+          id: 'traditional-acuka',
+          name: 'Traditional Acuka',
+          note: 'Dharma special',
+          description: 'Tomato, walnut, spices and garlic on toasted sourdough, scrambled egg.',
+          price: 11.25,
+          image: { src: '/images/menu/traditional-acuka.jpg', alt: 'Traditional Acuka' },
+        },
+        {
+          id: 'egg-royal',
+          name: 'Egg Royal',
+          description: 'Poached egg, salmon and hollandaise on sourdough.',
+          price: 11.85,
+          image: { src: '/images/menu/egg-royal.jpg', alt: 'Egg Royal' },
+        },
+        {
+          id: 'morning-bun',
+          name: 'Morning Bun',
+          description: 'Bun, sausage patty, egg and cheese.',
+          price: 11.25,
+          image: { src: '/images/menu/morning-bun.jpg', alt: 'Morning Bun' },
+        },
+        {
+          id: 'pancake-plate',
+          name: 'Pancake plate',
+          description: 'Five pancakes with Nutella and jam.',
+          price: 7.50,
+          image: { src: '/images/menu/pancake-plate.jpg', alt: 'Pancake plate' },
+        },
+        {
+          id: 'smashed-avocado',
+          name: 'Smashed avocado',
+          description: 'On toast with feta and mixed seeds.',
+          price: 10.50,
+          image: { src: '/images/menu/smashed-avocado.jpg', alt: 'Smashed avocado' },
+        },
+        {
+          id: 'scrambled-egg',
+          name: 'Scrambled egg on toast',
+          description: 'Soft eggs on toasted sourdough.',
+          price: 10.50,
+          image: { src: '/images/menu/scrambled-egg.jpg', alt: 'Scrambled egg on toast' },
+        },
+        {
+          id: 'sourdough-veggie',
+          name: 'Sourdough veggie',
+          description: 'Houmous, aubergine and asparagus.',
+          price: 10.50,
+          image: { src: '/images/menu/sourdough-veggie.jpg', alt: 'Sourdough veggie' },
+        },
+        {
+          id: 'vegetarian-wrap',
+          name: 'Vegetarian wrap',
+          description: 'Houmous, lettuce and falafel, green salad.',
+          price: 10.50,
+          image: { src: '/images/menu/vegetarian-wrap.jpg', alt: 'Vegetarian wrap' },
+        },
+      ],
+    },
+    {
+      id: 'lunch',
+      label: 'Salads and sandwiches',
+      items: [
+        {
+          id: 'chicken-salad',
+          name: 'Chicken salad',
+          description: 'Mixed greens, griddled chicken, basil and lemon.',
+          price: 11.85,
+          image: { src: '/images/menu/chicken-salad.jpg', alt: 'Chicken salad' },
+        },
+        {
+          id: 'smoked-salmon-salad',
+          name: 'Smoked salmon salad',
+          description: 'Cucumber, tomatoes, mint, basil and lemon.',
+          price: 11.85,
+          image: { src: '/images/menu/smoked-salmon-salad.jpg', alt: 'Smoked salmon salad' },
+        },
+        {
+          id: 'stuffed-avocado',
+          name: 'Stuffed avocado',
+          description: 'Basil pesto, mozzarella pearls and balsamic.',
+          price: 10.00,
+          image: { src: '/images/menu/stuffed-avocado.jpg', alt: 'Stuffed avocado' },
+        },
+        {
+          id: 'salmon-sandwich',
+          name: 'Salmon sandwich',
+          description: 'Smoked salmon, avocado, rocket, mascarpone.',
+          price: 6.25,
+          image: { src: '/images/menu/salmon-sandwich.jpg', alt: 'Salmon sandwich' },
+        },
+        {
+          id: 'mozzarella-sandwich',
+          name: 'Mozzarella sandwich',
+          description: 'Mozzarella, cherry tomatoes, rocket, avocado, pesto.',
+          price: 5.60,
+          image: { src: '/images/menu/mozzarella-sandwich.jpg', alt: 'Mozzarella sandwich' },
+        },
+      ],
+    },
+    {
+      id: 'bakery',
+      label: 'Bakery',
+      items: [
+        {
+          id: 'san-sebastian',
+          name: 'San Sebastian',
+          description: 'Burnt basque cheesecake, baked every morning.',
+          price: 6.25,
+          image: { src: '/images/menu/san-sebastian.jpg', alt: 'San Sebastian' },
+        },
+        {
+          id: 'croissant',
+          name: 'Croissant',
+          price: 3.10,
+          image: { src: '/images/menu/croissant.jpg', alt: 'Croissant' },
+        },
+        {
+          id: 'pain-au-chocolat',
+          name: 'Pain au chocolat',
+          price: 3.35,
+          image: { src: '/images/menu/pain-au-chocolat.jpg', alt: 'Pain au chocolat' },
+        },
+        {
+          id: 'pain-au-raisin',
+          name: 'Pain au raisin',
+          price: 3.35,
+          image: { src: '/images/menu/pain-au-raisin.jpg', alt: 'Pain au raisin' },
+        },
+        {
+          id: 'cinnamon-swirl',
+          name: 'Cinnamon swirl',
+          price: 4.00,
+          image: { src: '/images/menu/cinnamon-swirl.jpg', alt: 'Cinnamon swirl' },
+        },
+        {
+          id: 'banana-bread',
+          name: 'Banana bread',
+          price: 4.35,
+          image: { src: '/images/menu/banana-bread.jpg', alt: 'Banana bread' },
+        },
+        {
+          id: 'lemon-drizzle',
+          name: 'Lemon drizzle',
+          price: 4.35,
+          image: { src: '/images/menu/lemon-drizzle.jpg', alt: 'Lemon drizzle' },
+        },
+        {
+          id: 'doughnut-hazelnut',
+          name: 'Chocolate and hazelnut doughnut',
+          price: 4.60,
+          image: { src: '/images/menu/doughnut-hazelnut.jpg', alt: 'Chocolate and hazelnut doughnut' },
+        },
+        {
+          id: 'vegan-doughnut',
+          name: 'Vegan doughnut with jam',
+          price: 4.35,
+          image: { src: '/images/menu/vegan-doughnut.jpg', alt: 'Vegan doughnut with jam' },
+        },
+      ],
+    },
+    {
+      id: 'coffee',
+      label: 'Coffee',
+      items: [
+        {
+          id: 'flat-white',
+          name: 'Flat white',
+          description: 'Community espresso: chocolate and raspberry.',
+          price: 4.00,
+          image: { src: '/images/menu/flat-white.jpg', alt: 'Flat white' },
+        },
+        {
+          id: 'cappuccino',
+          name: 'Cappuccino',
+          price: 4.00,
+          image: { src: '/images/menu/cappuccino.jpg', alt: 'Cappuccino' },
+        },
+        {
+          id: 'cortado',
+          name: 'Cortado',
+          price: 4.00,
+          image: { src: '/images/menu/cortado.jpg', alt: 'Cortado' },
+        },
+        {
+          id: 'latte',
+          name: 'Latte',
+          price: 4.00,
+          image: { src: '/images/menu/latte.jpg', alt: 'Latte' },
+        },
+        {
+          id: 'americano',
+          name: 'Americano',
+          price: 3.60,
+          image: { src: '/images/menu/americano.jpg', alt: 'Americano' },
+        },
+        {
+          id: 'white-americano',
+          name: 'White americano',
+          price: 3.85,
+          image: { src: '/images/menu/white-americano.jpg', alt: 'White americano' },
+        },
+        {
+          id: 'mocha',
+          name: 'Mocha',
+          price: 4.35,
+          image: { src: '/images/menu/mocha.jpg', alt: 'Mocha' },
+        },
+        {
+          id: 'hot-chocolate',
+          name: 'Hot chocolate',
+          price: 4.60,
+          image: { src: '/images/menu/hot-chocolate.jpg', alt: 'Hot chocolate' },
+        },
+        {
+          id: 'v60',
+          name: 'V60',
+          note: 'Slow bar',
+          description: 'Pour over with a guest coffee.',
+          price: 5.00,
+          image: { src: '/images/menu/v60.jpg', alt: 'V60' },
+        },
+      ],
+    },
+    {
+      id: 'drinks',
+      label: 'Tea and cold drinks',
+      items: [
+        {
+          id: 'breakfast-tea',
+          name: 'Breakfast tea',
+          price: 3.00,
+          image: { src: '/images/menu/breakfast-tea.jpg', alt: 'Breakfast tea' },
+        },
+        {
+          id: 'earl-grey',
+          name: 'Earl Grey',
+          price: 3.00,
+          image: { src: '/images/menu/earl-grey.jpg', alt: 'Earl Grey' },
+        },
+        {
+          id: 'green-tea',
+          name: 'Green tea',
+          price: 3.00,
+          image: { src: '/images/menu/green-tea.jpg', alt: 'Green tea' },
+        },
+        {
+          id: 'herbal-tea',
+          name: 'Herbal tea',
+          price: 3.00,
+          image: { src: '/images/menu/herbal-tea.jpg', alt: 'Herbal tea' },
+        },
+        {
+          id: 'juice',
+          name: 'Fresh juice',
+          price: 2.50,
+          image: { src: '/images/menu/juice.jpg', alt: 'Fresh juice' },
+        },
+        {
+          id: 'kombucha',
+          name: 'MOMO kombucha',
+          description: 'Organic, fermented in small glass jars.',
+          price: 5.50,
+          image: { src: '/images/menu/kombucha.jpg', alt: 'MOMO kombucha' },
+        },
+        {
+          id: 'water',
+          name: 'Water',
+          price: 1.50,
+          image: { src: '/images/menu/water.jpg', alt: 'Water' },
+        },
+      ],
+    },
+  ],
+};

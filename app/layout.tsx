@@ -1,13 +1,54 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import localFont from 'next/font/local';
+import { SmoothScroll } from '@/components/layout/SmoothScroll';
+import { getSite } from '@/lib/api';
 import './globals.css';
-export const metadata: Metadata = {
-  metadataBase: new URL('https://dharmacoffee.uk'),
-  title: 'Dharma Coffee — Something good is brewing',
-  description: 'Our new website is brewing. Say hello to Dharma Coffee in Richmond, London.',
-  alternates: { canonical: '/' },
-  openGraph: { title: 'Dharma Coffee', description: 'Something good is brewing. Our new website is coming soon.', url: 'https://dharmacoffee.uk', type: 'website' },
-  icons: { icon: '/dharma-logo.webp' },
-};
-export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
-  return <html lang="en"><body>{children}</body></html>;
+
+const goodly = localFont({
+  src: [
+    { path: './fonts/Goodly-Regular.woff', weight: '400' },
+    { path: './fonts/Goodly-Medium.woff', weight: '500' },
+    { path: './fonts/Goodly-Semibold.woff', weight: '600' },
+  ],
+  variable: '--font-goodly',
+  display: 'swap',
+});
+
+const ralmone = localFont({
+  src: './fonts/Ralmone.woff2',
+  variable: '--font-ralmone',
+  display: 'swap',
+});
+
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite();
+  return {
+    metadataBase: new URL(site.url),
+    title: site.seoTitle,
+    description: site.description,
+    alternates: { canonical: '/' },
+    appleWebApp: { title: site.shortName, statusBarStyle: 'default' },
+    openGraph: {
+      title: site.seoTitle,
+      description: site.description,
+      siteName: site.name,
+      locale: 'en_GB',
+      url: site.url,
+      type: 'website',
+    },
+    twitter: { card: 'summary_large_image', title: site.seoTitle, description: site.description },
+  };
+}
+
+export const viewport: Viewport = { themeColor: '#efece4' };
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en-GB" className={`${goodly.variable} ${ralmone.variable}`}>
+      <body>
+        <SmoothScroll />
+        {children}
+      </body>
+    </html>
+  );
 }
