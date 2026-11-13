@@ -5,9 +5,9 @@ export const site: SiteInfo = {
   name: 'Dharma Specialty Coffee',
   shortName: 'Dharma',
   url: 'https://dharmacoffee.uk',
-  seoTitle: 'Specialty Coffee in Richmond & Twickenham | Dharma',
+  seoTitle: 'Dharma Coffee | Specialty Coffee in Richmond & Twickenham',
   description:
-    'Specialty coffee, fresh bakes and tea at 3 George Street, Richmond and at Twickenham Station. Murmuration beans, slow mornings, dogs welcome.',
+    'Visit Dharma Coffee on George Street in Richmond or at Twickenham Station for specialty coffee and matcha. Try our freshly baked San Sebastián.',
   email: 'richmond@dharmacoffee.uk',
   timeZone: 'Europe/London',
   currency: 'GBP',
